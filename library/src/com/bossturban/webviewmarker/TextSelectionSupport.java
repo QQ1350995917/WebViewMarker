@@ -1,32 +1,20 @@
 package com.bossturban.webviewmarker;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.blahti.drag.DragController;
-import com.blahti.drag.DragController.DragBehavior;
-import com.blahti.drag.DragLayer;
-import com.blahti.drag.DragListener;
-import com.blahti.drag.DragSource;
-import com.blahti.drag.MyAbsoluteLayout;
-import com.bossturban.webviewmarker.R;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
+import android.view.*;
 import android.view.View.OnLongClickListener;
-import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.view.View.OnTouchListener;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import com.blahti.drag.*;
+import com.blahti.drag.DragController.DragBehavior;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 @SuppressLint("DefaultLocale")
 public class TextSelectionSupport implements TextSelectionControlListener, OnTouchListener, OnLongClickListener, DragListener {
@@ -161,9 +149,6 @@ public class TextSelectionSupport implements TextSelectionControlListener, OnTou
         }
     }
 
-    //
-    // Interface of OnTouchListener
-    //
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         final Context ctx = mActivity;
@@ -203,10 +188,7 @@ public class TextSelectionSupport implements TextSelectionControlListener, OnTou
         }
     }
 
-    //
-    // Interface of OnLongClickListener
-    //
-    @Override 
+    @Override
     public boolean onLongClick(View v){
         mWebView.loadUrl("javascript:android.selection.longTouch();");
         mScrolling = true;
@@ -216,9 +198,6 @@ public class TextSelectionSupport implements TextSelectionControlListener, OnTou
         return true;
     }
 
-    //
-    // Interface of DragListener
-    //
     @Override
     public void onDragStart(DragSource source, Object info, DragBehavior dragBehavior) {
     }
@@ -266,7 +245,7 @@ public class TextSelectionSupport implements TextSelectionControlListener, OnTou
         mWebView.setOnTouchListener(this);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        mWebView.getSettings().setPluginsEnabled(true);
+//        mWebView.getSettings().setPluginsEnabled(true);
         mSelectionController = new TextSelectionController(this);       
         mWebView.addJavascriptInterface(mSelectionController, TextSelectionController.INTERFACE_NAME);
         createSelectionLayer(mActivity);

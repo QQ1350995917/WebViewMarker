@@ -1,24 +1,30 @@
 package com.bossturban.webviewmarker.sample.demos;
 
-import com.bossturban.webviewmarker.TextSelectionSupport;
-import com.bossturban.webviewmarker.sample.demos.R;
-
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.ActionMode;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+import com.bossturban.webviewmarker.TextSelectionSupport;
 
 public class MainActivity extends Activity {
-    private WebView mWebView;
     private TextSelectionSupport mTextSelectionSupport;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        mWebView = (WebView)findViewById(R.id.webView);
-        mTextSelectionSupport = TextSelectionSupport.support(this, mWebView);
+
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        MyWebView myWebView = new MyWebView(this);
+        myWebView.setLayoutParams(layoutParams);
+        this.setContentView(myWebView);
+
+        mTextSelectionSupport = TextSelectionSupport.support(this, myWebView);
         mTextSelectionSupport.setSelectionListener(new TextSelectionSupport.SelectionListener() {
             @Override
             public void startSelection() {
@@ -31,11 +37,27 @@ public class MainActivity extends Activity {
             public void endSelection() {
             }
         });
-        mWebView.setWebViewClient(new WebViewClient() {
+        myWebView.setWebViewClient(new WebViewClient() {
             public void onScaleChanged(WebView view, float oldScale, float newScale) {
                 mTextSelectionSupport.onScaleChanged(oldScale, newScale);
             }
         });
-        mWebView.loadUrl("file:///android_asset/content.html");
+        myWebView.loadUrl("file:///android_asset/content.html");
+    }
+
+
+    private class MyWebView extends WebView{
+        public MyWebView(Context context) {
+            super(context);
+        }
+
+        @Override
+        public ActionMode startActionMode(ActionMode.Callback callback) {
+            ViewParent parent = getParent();
+            if (parent == null) {
+                return null;
+            }
+            return null;
+        }
     }
 }

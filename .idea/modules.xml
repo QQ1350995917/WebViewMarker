@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/library/WebViewMarker.iml" filepath="$PROJECT_DIR$/library/WebViewMarker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/samples/demos/WebViewMarkerDemo.iml" filepath="$PROJECT_DIR$/samples/demos/WebViewMarkerDemo.iml" />
+    </modules>
+  </component>
+</project>
